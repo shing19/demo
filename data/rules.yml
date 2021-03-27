@@ -1,0 +1,9 @@
+version: "2.0"
+
+rules:
+
+
+  - rule: Chichat Tulin
+    steps:
+    - intent: out_of_scope
+    - action: action_default_fallback

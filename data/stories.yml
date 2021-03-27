@@ -1,0 +1,62 @@
+version: "2.0"
+stories:
+- story: say hi
+  steps:
+  - intent: greet
+  - action: utter_greet
+- story: say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+- story: who are you
+  steps:
+  - intent: whoareyou
+  - action: utter_iamabot
+- story: what to do
+  steps:
+  - intent: whattodo
+  - action: utter_answer_whattodo
+- story: path about time
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: whattime
+  - action: action_show_time
+- story: ask covid19_fromtopolicy with keywords
+  steps:
+  - or:
+    - intent: query_covid19_fromtopolicy_from
+    - intent: query_covid19_fromtopolicy_to
+    - intent: query_covid19_fromtopolicy_keyword
+  - action: fromto_city_form
+  - active_loop: fromto_city_form
+  - slot_was_set:
+    - requested_slot: departure
+  - slot_was_set:
+    - departure: 340100
+  - slot_was_set:
+    - requested_slot: destination
+  - slot_was_set:
+    - destination: 621000
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_search_covid19_fromtopolicy
+  - action: action_utter_covid19_fromtopolicy
+- story: Story from Conversation ID 6b2b658104c0464186b3096ea82bc1d4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: whattime
+  - action: action_show_time
+  - intent: out_of_scope
+  - action: action_default_fallback
+  - intent: affirm
+  - action: utter_answer_whattodo
+  - intent: query_covid19_fromtopolicy
+    entities:
+    - city: '320500'
+  - action: utter_iamabot
+  - intent: query_covid19_fromtopolicy
+  - action: utter_iamabot

@@ -1,0 +1,114 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- whattime:
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+- whoareyou:
+    use_entities: true
+- whattodo:
+    use_entities: true
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- thanks:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- query_covid19_fromtopolicy:
+    use_entities: true
+- slot_city:
+    use_entities: true
+entities:
+- city
+slots:
+  departure:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  destination:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  from_city_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  from_city_policy:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  to_city_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  to_city_policy:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  city_spelled_correctly:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: 嗨！我是一个疫情通的小机器人😉 可以帮你快速查询隔离政策 想要试试看吗？告诉我你想去的城市吧
+  utter_goodbye:
+  - text: 再见👋
+  utter_iamabot:
+  - text: 我是疫情通的小机器人🤖️
+  utter_answer_whattodo:
+  - text: 我可以帮你查询隔离政策
+  utter_ask_departure:
+  - text: 从哪里出发？
+  utter_ask_destination:
+  - text: 你要去哪里？
+  - text: 你打算去哪里？
+  - text: 你要到哪去？
+  utter_submit:
+  - text: 好的
+  utter_slots_values:
+  - text: 将为您查询从{departure}前往{destination}的隔离政策
+  utter_default:
+  - text: 已阅，不知道怎么回复，你在说点别的呗
+actions:
+- action_show_time
+- action_search_covid19_fromtopolicy
+- validate_fromto_city_form
+- action_utter_covid19_fromtopolicy
+- action_default_fallback
+forms:
+  fromto_city_form:
+    departure:
+    - entity: city
+      role: departure
+      type: from_entity
+    - entity: city
+      type: from_entity
+    destination:
+    - entity: city
+      role: destination
+      type: from_entity
+    - entity: city
+      type: from_entity
+e2e_actions: []

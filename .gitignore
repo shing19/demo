@@ -1,0 +1,8 @@
+/venv/
+/models/
+events.db-shm
+events.db-wal
+events.db
+rasa.db
+/data/total_word_feature_extractor_zh.dat
+/data/bert-base-chinese/
